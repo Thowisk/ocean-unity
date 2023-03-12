@@ -6,7 +6,6 @@ using UnityEngine.Video;
 
 public class StartVideo : MonoBehaviour
 {
-    private string path = "C:\\Users\\XeNoZ\\OneDrive\\Bureau\\Fiddlesticks.mp4"; //path to the video on the computer -> Must Modify !
     [SerializeField] private GameObject PcPov;
     [SerializeField] private GameObject IntroductionVideo;
     [SerializeField] private GameObject Empty;
@@ -15,6 +14,8 @@ public class StartVideo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Switch to 1920 x 1080 full-screen
+        Screen.SetResolution(1920, 1080, true);
         PcPov.SetActive(true);
         IntroductionVideo.SetActive(false);
         Empty.SetActive(false);
@@ -29,25 +30,17 @@ public class StartVideo : MonoBehaviour
     public void StartExp()
     {
         PcPov.SetActive(false);
-        IntroductionVideo.SetActive(true);
+        IntroductionVideo.SetActive(true); // Demarre directement la vidéo à ce momment.
         Empty.SetActive(false);
-        StartingVideo();
-
-    }
-
-    public void StartingVideo()
-    {
-        VP.gameObject.SetActive(true);
-        VP.playOnAwake = false;
-        VP.url = path;
-        VP.Prepare();
-        VP.Play();
-        VP.loopPointReached -= EndReached;
+        VP.loopPointReached += EndReached; // cree une instace de Endreached et execute le code, à la fin de la vidéo.
     }
 
     void EndReached(UnityEngine.Video.VideoPlayer VP)
     {
+        Debug.Log(Display.displays.Length);
         VP.gameObject.SetActive(false);
+        IntroductionVideo.SetActive(false);
         Empty.SetActive(true);
+        Display.displays[1].Activate();
     }
 }
