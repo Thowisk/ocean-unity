@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
-public class StartVideo : MonoBehaviour
+public class StartVideo2 : MonoBehaviour
 {
     [SerializeField] private GameObject PcPov;
     [SerializeField] private GameObject IntroductionVideo;
-    [SerializeField] private GameObject Empty;
-    [SerializeField] private VideoPlayer VP;
     
+    [SerializeField] private VideoPlayer VP;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,20 +18,20 @@ public class StartVideo : MonoBehaviour
         Screen.SetResolution(1920, 1080, true);
         PcPov.SetActive(true);
         IntroductionVideo.SetActive(false);
-        Empty.SetActive(false);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void StartExp()
     {
         PcPov.SetActive(false);
         IntroductionVideo.SetActive(true); // Demarre directement la vidéo à ce momment.
-        Empty.SetActive(false);
+        
         VP.loopPointReached += EndReached; // cree une instace de Endreached et execute le code, à la fin de la vidéo.
     }
 
@@ -39,6 +39,6 @@ public class StartVideo : MonoBehaviour
     {
         VP.gameObject.SetActive(false);
         IntroductionVideo.SetActive(false);
-        Empty.SetActive(true);
+        SceneManager.LoadScene("Ocean");
     }
 }
